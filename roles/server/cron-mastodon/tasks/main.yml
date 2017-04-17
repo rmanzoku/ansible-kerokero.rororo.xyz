@@ -1,0 +1,15 @@
+---
+
+- cron:
+    user: mastodon
+    env: yes
+    name: RAILS_ENV
+    value: production
+
+# https://github.com/tootsuite/documentation/blob/master/Running-Mastodon/Production-guide.md#cronjobs
+- cron:
+    user: mastodon
+    name: mastodon daily
+    minute: "0"
+    hour: "19"
+    job: "cd /home/mastodon/live && /home/mastodon/.rbenv/shims/bundle exec rake mastodon:daily 2>&1 /home/mastodon/cron.log"

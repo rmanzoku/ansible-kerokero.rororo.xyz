@@ -12,6 +12,7 @@
     - { tags: n, role: server/nginx-config }
     - { tags: d, role: server/mastodon-dependencies }
     - { tags: m, role: server/deploy-mastodon }
+    - { tags: c, role: server/cron-mastodon }
     - { tags: mack, role: server/mackerel }
 
 # DB server
