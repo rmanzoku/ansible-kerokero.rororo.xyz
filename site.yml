@@ -1,0 +1,33 @@
+# Web servers
+- hosts: "tag_role_web"
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    domain: kerokero.rororo.xyz
+  roles:
+    - server/install-standard-packages
+    # - { tags: l, role: server/letsencrypt }
+    # - { tags: r, role: server/install-ruby }
+    - { role: server/install-nginx, nginx_version: 1.11.13 }
+    - { tags: n, role: server/nginx-config }
+    - { tags: d, role: server/mastodon-dependencies }
+    - { tags: m, role: server/deploy-mastodon }
+    - { tags: mack, role: server/mackerel }
+
+# DB server
+- hosts: "tag_role_web"
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - server/install-standard-packages
+    - { tags: p, role: server/install-postgres }
+
+# Redis server
+- hosts: "tag_role_web"
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  roles:
+    - server/install-standard-packages
+    - { tags: r, role: server/install-redis }

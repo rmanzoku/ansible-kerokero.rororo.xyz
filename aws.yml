@@ -1,0 +1,10 @@
+- hosts: localhost
+  become: no
+  connection: local
+  gather_facts: no
+  var:
+    image_bucket: img.prod.s3.kerokero.rororo.xyz
+  roles:
+    - { tags: sg, role: aws/security-group }
+    - { tags: s3, role: aws/s3 }
+    - { tags: iamrole, role: aws/iamrole }

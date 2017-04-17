@@ -1,0 +1,20 @@
+- set_fact:
+    roles:
+      - web
+
+- name: Create IAM roles
+  iam:
+    iam_type: role
+    name: "{{ item }}-iamrole"
+    state: present
+  with_items: "{{ roles }}"
+
+- name: Set policy
+  iam_policy:
+    iam_type: role
+    iam_name: "{{ item }}-iamrole"
+    policy_name: "{{ item }}"
+    policy_json: "{{ lookup('file', item + '.json') }}"
+    state: present
+  with_items: "{{ roles }}"
+

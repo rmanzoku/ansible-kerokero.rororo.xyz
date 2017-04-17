@@ -1,0 +1,19 @@
+- apt_key:
+    url: "https://mackerel.io/assets/files/GPG-KEY-mackerel"
+
+- apt_repository:
+    repo: "deb http://apt.mackerel.io/debian/ mackerel contrib"
+
+- apt: update_cache=yes
+  changed_when: no
+
+- apt: name={{ item }} state=present
+  with_items:
+    - mackerel-agent
+    - mackerel-agent-plugins
+
+- copy: src=etc/mackerel-agent/mackerel-agent.conf dest=/etc/mackerel-agent/mackerel-agent.conf owner=root group=root mode=0644
+
+- systemd: name=mackerel-agent.service state=started
+
+- systemd: name=mackerel-agent.service state=reloaded

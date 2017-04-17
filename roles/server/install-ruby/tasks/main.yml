@@ -1,0 +1,20 @@
+- apt: name=software-properties-common
+
+- apt_repository: repo="ppa:brightbox/ruby-ng"
+
+- apt: update_cache=yes
+  changed_when: false
+
+- apt: name="{{ item }}" force=yes state=present
+  with_items:
+    - ruby2.4
+    # - ruby2.3-dev
+    # - libruby2.3
+
+# - file: state=link src=/usr/bin/ruby2.3 dest=/usr/bin/ruby
+
+# - file: state=link src=/usr/bin/gem2.3 dest=/usr/bin/gem
+
+# - gem: name=bundler version=1.14.5 state=present user_install=no
+- apt: name=bundler state=present
+

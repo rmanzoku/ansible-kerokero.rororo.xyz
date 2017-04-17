@@ -1,0 +1,16 @@
+- pip: name=pyOpenSSL
+
+- file: state=directory path=/etc/letsencrypt owner=root group=root
+
+- file: state=directory path=/etc/letsencrypt/{{ item }} owner=root group=root mode=0700
+  with_items:
+    - csr
+    - keys
+    - live
+
+- openssl_privatekey: path=/etc/letsencrypt/keys/{{ domain }}.pem
+
+- openssl_csr:
+    path: "/etc/letsencrypt/csr/{{ domain }}.csr"
+    privatekey_path: "/etc/letsencrypt/keys/{{ domain }}.pem"
+    commonName: "{{ domain }}"

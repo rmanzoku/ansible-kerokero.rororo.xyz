@@ -1,0 +1,60 @@
+- apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+
+- apt_repository:
+    repo: "deb https://deb.nodesource.com/node_4.x xenial main"
+
+- apt: update_cache=yes
+  changed_when: no
+
+- apt: name={{ item }} state=present
+  with_items:
+    - imagemagick
+    - ffmpeg
+    - libpq-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - nodejs
+    # - file
+    # - git
+    # - curl
+
+- npm: name=yarn global=yes production=yes
+
+- copy: src=etc/systemd/system/{{ item }} dest=/etc/systemd/system/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - mastodon-web.service
+    - mastodon-sidekiq.service
+    - mastodon-streaming.service
+
+- systemd: name={{ item }} enabled=yes daemon_reload=yes
+  with_items:
+    - mastodon-web.service
+    - mastodon-sidekiq.service
+    - mastodon-streaming.service
+
+- user: name=mastodon shell=/bin/bash
+
+- file: state=directory path=/home/mastodon/src owner=mastodon group=mastodon
+
+- file: state=directory path=/home/mastodon/lib/github.com/tootsuite/mastodon/bundle owner=mastodon group=mastodon
+
+- name: Clone rbenv
+  git:
+    repo: https://github.com/rbenv/rbenv.git
+    dest: /home/mastodon/.rbenv
+    version: master
+  become: yes
+  become_user: mastodon
+
+- name: Clone ruby-build
+  git:
+    repo: https://github.com/rbenv/ruby-build.git
+    dest: /home/mastodon/.rbenv/plugins/ruby-build
+    version: master
+  become: yes
+  become_user: mastodon
+
+- apt: name=libreadline-dev
+
+- apt: name=python

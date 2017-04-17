@@ -1,0 +1,12 @@
+[localhost]
+127.0.0.1
+
+[localhost:vars]
+admin_ip=106.177.208.39/32
+
+# SSH経由にしない
+ansible_connection=local
+# virtualenv使ってる場合はinterpreterを指定しないとライブラリの解決できない
+ansible_python_interpreter=python
+
+

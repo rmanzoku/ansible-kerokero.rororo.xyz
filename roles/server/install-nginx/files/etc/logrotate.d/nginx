@@ -1,0 +1,25 @@
+/var/log/nginx/*.log
+{
+        rotate 1
+        daily
+        missingok
+        ifempty
+        compress
+        sharedscripts
+        postrotate
+                kill -USR1 `cat /var/run/nginx.pid` >/dev/null 2>&1 || true
+        endscript
+        lastaction
+                yesterday=`date -d '1 day ago' +%Y%m%d`
+                log_dir=`dirname $1 | head -1`
+                test -d ${log_dir}/old || mkdir ${log_dir}/old
+
+                for old_log in `find $log_dir -maxdepth 1 -type f -name "*.1.gz"`; do
+                        log_type=`basename $old_log | sed -e 's#\(.*\)\.log\.1\.gz$#\1#'`
+                        new_log=${log_dir}/old/${log_type}_${yesterday}_`hostname -s`.log.gz
+                        mv $old_log $new_log
+                done
+
+                find ${log_dir}/old -maxdepth 1 -type f -name "*_`hostname -s`.log.gz" -daystart -mtime +15 -delete
+        endscript
+}

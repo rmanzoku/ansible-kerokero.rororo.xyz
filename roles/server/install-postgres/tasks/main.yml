@@ -1,0 +1,23 @@
+- apt: name="{{ item }}" state=present
+  with_items:
+    - postgresql
+    - postgresql-contrib
+    - pidentd
+
+- file: state=absent path=/lib/systemd/system/postgresql.service
+
+# - systemd: daemon_reload=yes
+
+- copy: src=etc/postgresql/9.5/main/pg_hba.conf dest=/etc/postgresql/9.5/main/pg_hba.conf mode=0640
+
+- file: state=directory dest=/etc/postgresql/ owner=postgres group=postgres recurse=yes
+
+- service: name=postgresql state=started
+
+- pip: name=psycopg2
+
+- postgresql_user:
+    name: mastodon
+    role_attr_flags: CREATEDB
+  become: yes
+  become_user: postgres

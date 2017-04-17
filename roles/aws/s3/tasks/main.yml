@@ -1,0 +1,12 @@
+- s3_bucket:
+    state: present
+    name: "{{ item }}"
+    policy: "{{ lookup('file', item + '.json') }}"
+  with_items:
+    - img.prod.s3.kerokero.rororo.xyz
+
+- s3_website:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - img.prod.s3.kerokero.rororo.xyz
