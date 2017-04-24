@@ -11,9 +11,12 @@
     - { role: server/install-nginx, nginx_version: 1.11.13 }
     - { tags: n, role: server/nginx-config }
     - { tags: d, role: server/mastodon-dependencies }
+    - { tags: [m,stop], role: server/stop-mastodon }
     - { tags: m, role: server/deploy-mastodon }
+    - { tags: start, role: server/start-mastodon }
     - { tags: c, role: server/cron-mastodon }
     - { tags: mack, role: server/mackerel }
+    - { tags: s, role: server/make-swap }
 
 # DB server
 - hosts: "tag_role_web"
