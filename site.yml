@@ -17,6 +17,7 @@
     - { tags: c, role: server/cron-mastodon }
     - { tags: mack, role: server/mackerel }
     - { tags: s, role: server/make-swap }
+    - { tags: my, role: server/my-scripts }
 
 # DB server
 - hosts: "tag_role_web"

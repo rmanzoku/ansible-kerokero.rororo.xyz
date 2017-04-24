@@ -1,0 +1,30 @@
+- name: Clone dotfiles
+  git:
+    repo: https://github.com/rmanzoku/scripts.git
+    dest: "/usr/local/github.com/rmanzoku/scripts"
+    version: master
+
+- cron:
+    user: root
+    env: yes
+    name: PATH
+    value: /usr/local/github.com/rmanzoku/scripts:/usr/local/bin:/usr/bin:/bin
+
+- cron:
+    user: root
+    env: yes
+    name: WEBHOOK_URL
+    value: https://hooks.slack.com/services/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
+
+- cron:
+    user: root
+    env: yes
+    name: CHANNEL
+    value: "#audit"
+
+- cron:
+    user: root
+    name: audit s3 img.prod.s3.kerokero.rororo.xyz
+    minute: "10"
+    hour: "3"
+    job: "aws s3 ls s3://img.prod.s3.kerokero.rororo.xyz --recursive --human-readable --summarize | tail -n 2 | post2slack -m 'S3 summerize img.prod.s3.kerokero.rororo.xyz'"
