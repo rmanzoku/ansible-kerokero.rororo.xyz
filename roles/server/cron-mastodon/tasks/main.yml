@@ -11,5 +11,5 @@
     user: mastodon
     name: mastodon daily
     minute: "0"
-    hour: "19"
+    hour: "19,7"
     job: "cd /home/mastodon/live && /home/mastodon/.rbenv/shims/bundle exec rake mastodon:daily 2>&1 /home/mastodon/cron.log"
