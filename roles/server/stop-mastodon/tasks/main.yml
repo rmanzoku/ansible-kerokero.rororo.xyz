@@ -1,0 +1,5 @@
+- systemd: name={{ item }} state=stopped
+  with_items:
+    - mastodon-web
+    - mastodon-streaming
+    - mastodon-sidekiq
