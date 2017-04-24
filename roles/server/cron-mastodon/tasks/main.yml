@@ -13,3 +13,10 @@
     minute: "0"
     hour: "19,7"
     job: "cd /home/mastodon/live && /home/mastodon/.rbenv/shims/bundle exec rake mastodon:daily 2>&1 /home/mastodon/cron.log"
+
+- cron:
+    user: mastodon
+    name: mastodon flush tmp files
+    minute: "0"
+    hour: "18"
+    job: "/usr/bin/find /tmp/ -type f -user mastodon -mtime +2 -delete  2>&1 /home/mastodon/cron.log"
