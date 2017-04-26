@@ -8,7 +8,7 @@
     - server/install-standard-packages
     # - { tags: l, role: server/letsencrypt }
     # - { tags: r, role: server/install-ruby }
-    - { role: server/install-nginx, nginx_version: 1.11.13 }
+    - { tags: nginx, role: server/install-nginx, nginx_version: 1.13.0 }
     - { tags: n, role: server/nginx-config }
     - { tags: d, role: server/mastodon-dependencies }
     - { tags: [m,stop], role: server/stop-mastodon }
