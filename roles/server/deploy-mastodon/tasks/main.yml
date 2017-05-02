@@ -6,23 +6,23 @@
   become: yes
   become_user: mastodon
 
+- shell: /home/mastodon/.rbenv/bin/rbenv install
+  args:
+    chdir: /home/mastodon/live
+  become: yes
+  become_user: mastodon
+  when: RUBY_UPDATE is defined and RUBY_UPDATE is True
 
-#- file: state=link src=/home/mastodon/src/mastodon-{{ mastodon_version }} dest=/home/mastodon/live
-
-# - shell: /home/mastodon/.rbenv/bin/rbenv install
-#   args:
-#     chdir: /home/mastodon/live
-#   become: yes
-#   become_user: mastodon
-
-- gem:
+- name: "gem install bundler"
+  gem:
     executable: /home/mastodon/.rbenv/shims/gem
     name: bundler
     user_install: no
   become: yes
   become_user: mastodon
 
-- file: state=directory path=/home/mastodon/lib/github.com/rmanzoku/mastodon/bundle owner=mastodon group=mastodon
+- name: "Create bundle directory"
+  file: state=directory path=/home/mastodon/lib/github.com/rmanzoku/mastodon/bundle owner=mastodon group=mastodon
 
 - name: "bundle install"
   bundler:
@@ -36,15 +36,18 @@
   become: yes
   become_user: mastodon
 
-- shell: yarn install
+- name: yarn install
+  shell: yarn install
   args:
     chdir: /home/mastodon/live
   become: yes
   become_user: mastodon
 
-- copy: src=home/mastodon/live/.env.production dest=/home/mastodon/live/.env.production
+- name: Copy env file
+  copy: src=home/mastodon/live/.env.production dest=/home/mastodon/live/.env.production
 
-- shell: /home/mastodon/.rbenv/shims/bundle exec rails db:migrate
+- name: bundle exec rails db:migrate
+  shell: /home/mastodon/.rbenv/shims/bundle exec rails db:migrate
   args:
     chdir: /home/mastodon/live
   environment:
@@ -52,7 +55,8 @@
   become: yes
   become_user: mastodon
 
-- shell: /home/mastodon/.rbenv/shims/bundle exec rails assets:precompile
+- name: bundle exec rails assets:precompile
+  shell: /home/mastodon/.rbenv/shims/bundle exec rails assets:precompile
   args:
     chdir: /home/mastodon/live
   environment:
