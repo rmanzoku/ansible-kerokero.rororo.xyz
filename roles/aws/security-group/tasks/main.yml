@@ -15,3 +15,17 @@
         from_port: 443
         to_port: 443
         cidr_ip: 0.0.0.0/0
+
+- name: "db"
+  ec2_group:
+    name: "db"
+    description: "db servers"
+    rules:
+      - proto: tcp
+        from_port: 5432
+        to_port: 5432
+        cidr_ip: "{{ admin_ip }}"
+      - proto: tcp
+        from_port: 5432
+        to_port: 5432
+        cidr_ip: 172.31.0.0/16
