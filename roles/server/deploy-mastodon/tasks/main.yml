@@ -11,7 +11,7 @@
     chdir: /home/mastodon/live
   become: yes
   become_user: mastodon
-  when: RUBY_UPDATE is defined and RUBY_UPDATE is True
+  when: RUBY_UPDATE is defined and RUBY_UPDATE
 
 - name: "gem install bundler"
   gem:
