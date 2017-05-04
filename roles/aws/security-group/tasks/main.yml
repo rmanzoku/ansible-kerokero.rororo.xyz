@@ -2,6 +2,9 @@
   ec2_group:
     name: "web"
     description: "web servers"
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
     rules:
       - proto: tcp
         from_port: 0
