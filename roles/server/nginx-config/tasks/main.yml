@@ -1,3 +1,5 @@
+- copy: src=etc/ssl/certs/dhparam.pem dest=/etc/ssl/certs/dhparam.pem owner=root group=root mode=0644
+
 - file: path=/etc/nginx state=directory owner=root group=root mode=0755
 
 - synchronize: src=etc/nginx/ dest=/etc/nginx/ recursive=yes delete=yes owner=no group=no perms=no rsync_opts="--exclude=common"
