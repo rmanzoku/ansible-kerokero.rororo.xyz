@@ -37,7 +37,7 @@
   become_user: mastodon
 
 - name: yarn install
-  shell: yarn install
+  shell: yarn install --pure-lockfile
   args:
     chdir: /home/mastodon/live
   become: yes
