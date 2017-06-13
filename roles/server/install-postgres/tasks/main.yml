@@ -12,7 +12,7 @@
 
 - file: state=directory dest=/etc/postgresql/ owner=postgres group=postgres recurse=yes
 
-- service: name=postgresql state=started
+- service: name=postgresql state=stopped
 
 - pip: name=psycopg2
 

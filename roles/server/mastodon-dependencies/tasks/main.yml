@@ -2,22 +2,26 @@
     url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
 
 - apt_repository:
-    repo: "deb https://deb.nodesource.com/node_4.x xenial main"
+    repo: "deb https://deb.nodesource.com/node_6.x xenial main"
 
 - apt: update_cache=yes
   changed_when: no
 
-- apt: name={{ item }} state=present
+- apt: name={{ item }} state=latest
   with_items:
-    - imagemagick
     - ffmpeg
+    - imagemagick
     - libpq-dev
     - libxml2-dev
     - libxslt1-dev
+    - file
+    - git
+    - curl
+    - g++
+    - pkg-config
+    - libprotobuf-dev
+    - protobuf-compiler
     - nodejs
-    # - file
-    # - git
-    # - curl
 
 - npm: name=yarn global=yes production=yes
 
