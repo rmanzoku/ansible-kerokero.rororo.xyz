@@ -46,20 +46,17 @@
 - name: Copy env file
   copy: src=home/mastodon/live/.env.production dest=/home/mastodon/live/.env.production
 
-- name: bundle exec rails db:migrate
-  shell: /home/mastodon/.rbenv/shims/bundle exec rails db:migrate
+- name: bundle exec
+  shell: "/home/mastodon/.rbenv/shims/bundle exec {{ item }}"
   args:
     chdir: /home/mastodon/live
   environment:
     RAILS_ENV: production
   become: yes
   become_user: mastodon
+  with_items:
+    # - rails mastodon:maintenance:prepare_for_foreign_keys # for v1.4.2
+    - rails db:migrate
+    # - rails r Rails.cache.clear # for v1.4.2
+    - rails assets:precompile
 
-- name: bundle exec rails assets:precompile
-  shell: /home/mastodon/.rbenv/shims/bundle exec rails assets:precompile
-  args:
-    chdir: /home/mastodon/live
-  environment:
-    RAILS_ENV: production
-  become: yes
-  become_user: mastodon
