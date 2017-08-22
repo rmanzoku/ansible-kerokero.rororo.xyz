@@ -1,3 +1,4 @@
+
 - git:
     repo: https://github.com/rmanzoku/mastodon.git
     version: live
@@ -12,6 +13,9 @@
   become: yes
   become_user: mastodon
   when: RUBY_UPDATE is defined and RUBY_UPDATE
+
+- name: set global ruby
+  file: state=link dest=/home/mastodon/.rbenv/version src=/home/mastodon/live/.ruby-version
 
 - name: "gem install bundler"
   gem:
