@@ -22,6 +22,7 @@
     executable: /home/mastodon/.rbenv/shims/gem
     name: bundler
     user_install: no
+    state: latest
   become: yes
   become_user: mastodon
 
