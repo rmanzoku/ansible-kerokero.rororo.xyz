@@ -4,26 +4,51 @@
 - apt_repository:
     repo: "deb https://deb.nodesource.com/node_6.x xenial main"
 
+- apt_key:
+    url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
+
+- apt_repository:
+    repo: "deb https://dl.yarnpkg.com/debian/ stable main"
+
+
 - apt: update_cache=yes
   changed_when: no
 
 - apt: name={{ item }} state=latest
   with_items:
-    - ffmpeg
     - imagemagick
+    - ffmpeg
     - libpq-dev
     - libxml2-dev
     - libxslt1-dev
     - file
-    - git
-    - curl
+    - git-core
     - g++
-    - pkg-config
     - libprotobuf-dev
     - protobuf-compiler
+    - pkg-config
     - nodejs
-
-- npm: name=yarn global=yes production=yes
+    - gcc
+    - autoconf
+    - bison
+    - build-essential
+    - libssl-dev
+    - libyaml-dev
+    - libreadline6-dev
+    - zlib1g-dev
+    - libncurses5-dev
+    - libffi-dev
+    - libgdbm3
+    - libgdbm-dev
+    # - nginx
+    # - redis-server
+    - redis-tools
+    # - postgresql
+    - postgresql-contrib
+    - letsencrypt
+    - yarn
+    - libidn11-dev
+    - libicu-dev
 
 - copy: src=etc/systemd/system/{{ item }} dest=/etc/systemd/system/{{ item }} owner=root group=root mode=0644
   with_items:
