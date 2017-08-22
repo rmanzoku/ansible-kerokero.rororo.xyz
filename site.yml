@@ -19,14 +19,14 @@
     - { tags: s, role: server/make-swap }
     - { tags: my, role: server/my-scripts }
 
-# DB server
-- hosts: "tag_role_web"
-  become: yes
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  roles:
-    - server/install-standard-packages
-    - { tags: p, role: server/install-postgres }
+# # DB server
+# - hosts: "tag_role_web"
+#   become: yes
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3
+#   roles:
+#     - server/install-standard-packages
+#     - { tags: p, role: server/install-postgres }
 
 # Redis server
 - hosts: "tag_role_web"
