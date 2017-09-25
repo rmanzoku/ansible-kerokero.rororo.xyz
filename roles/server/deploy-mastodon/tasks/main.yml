@@ -64,4 +64,5 @@
     - rails db:migrate
     # - rails r Rails.cache.clear # for v1.4.2
     - rails assets:precompile
+    # - rails mastodon:maintenance:remove_deprecated_preview_cards # for v1.6.0
 

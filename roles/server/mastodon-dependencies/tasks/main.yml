@@ -1,20 +1,28 @@
-- apt_key:
+# https://github.com/tootsuite/documentation/blob/master/Running-Mastodon/Production-guide.md
+
+- name: Add apt_key for nodejs
+  apt_key:
     url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
 
-- apt_repository:
+- name: Add apt_repo for nodejs
+  apt_repository:
     repo: "deb https://deb.nodesource.com/node_6.x xenial main"
 
-- apt_key:
+- name: Add apt_key for yarn
+  apt_key:
     url: "https://dl.yarnpkg.com/debian/pubkey.gpg"
 
-- apt_repository:
+- name: Add apt_repo for yarn
+  apt_repository:
     repo: "deb https://dl.yarnpkg.com/debian/ stable main"
 
 
-- apt: update_cache=yes
+- name: apt update
+  apt: update_cache=yes
   changed_when: no
 
-- apt: name={{ item }} state=latest
+- name: Install packages
+  apt: name={{ item }} state=latest
   with_items:
     - imagemagick
     - ffmpeg
