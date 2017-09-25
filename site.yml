@@ -7,7 +7,9 @@
   roles:
     - server/install-standard-packages
     # - { tags: l, role: server/letsencrypt }
-    # - { tags: r, role: server/install-ruby }
+    - { tags: mack, role: server/mackerel }
+    - { tags: s, role: server/make-swap }
+    - { tags: my, role: server/my-scripts }
     - { tags: nginx, role: server/install-nginx, nginx_version: 1.13.4 }
     - { tags: n, role: server/nginx-config }
     - { tags: d, role: server/mastodon-dependencies }
@@ -15,9 +17,6 @@
     - { tags: m, role: server/deploy-mastodon }
     - { tags: start, role: server/start-mastodon }
     - { tags: c, role: server/cron-mastodon }
-    - { tags: mack, role: server/mackerel }
-    - { tags: s, role: server/make-swap }
-    - { tags: my, role: server/my-scripts }
 
 # # DB server
 # - hosts: "tag_role_web"
