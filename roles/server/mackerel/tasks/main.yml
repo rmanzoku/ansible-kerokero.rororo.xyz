@@ -1,18 +1,33 @@
-- apt_key:
-    url: "https://mackerel.io/assets/files/GPG-KEY-mackerel"
+# https://mackerel.io/file/script/setup-all-apt-v2.sh
+- name: Add apt key
+  apt_key:
+    url: "https://mackerel.io/file/cert/GPG-KEY-mackerel-v2"
 
-- apt_repository:
-    repo: "deb http://apt.mackerel.io/debian/ mackerel contrib"
+- name: Add apt repo
+  apt_repository:
+    repo: "deb http://apt.mackerel.io/v2/ mackerel contrib"
 
-- apt: update_cache=yes
+- name: Update apt
+  apt: update_cache=yes
   changed_when: no
 
-- apt: name={{ item }} state=present
+- name: Install mackerel-agent and plugins
+  apt: name={{ item }} state=present
   with_items:
     - mackerel-agent
     - mackerel-agent-plugins
+    - mackerel-check-plugins
 
-- copy: src=etc/mackerel-agent/mackerel-agent.conf dest=/etc/mackerel-agent/mackerel-agent.conf owner=root group=root mode=0644
+- name: Make conf.d directory
+  file: state=directory path=/etc/mackerel-agent/conf.d owner=root group=root
+
+- name: Copy conf from template
+  template:
+    src: etc/mackerel-agent/mackerel-agent.conf.j2
+    dest: /etc/mackerel-agent/mackerel-agent.conf
+    owner: root
+    group: root
+    mode: 0644
 
 - systemd: name=mackerel-agent.service state=started
 

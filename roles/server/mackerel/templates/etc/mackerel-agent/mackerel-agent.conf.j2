@@ -1,0 +1,23 @@
+pidfile = "/var/run/mackerel-agent.pid"
+root = "/var/lib/mackerel-agent"
+verbose = false
+apikey = "{{ mackerel_key }}"
+
+[host_status]
+on_start = "working"
+on_stop  = "poweroff"
+
+[plugin.metrics.aws-ec2_cpucredit]
+command = "/usr/local/bin/mackerel-plugin-aws-ec2-cpucredit"
+
+[plugin.metrics.linux]
+command = "/usr/local/bin/mackerel-plugin-linux"
+
+[plugin.metrics.nginx]
+command = "/usr/local/bin/mackerel-plugin-nginx -path /server-status -port 80 "
+
+[plugin.metrics.postgres]
+command = "mackerel-plugin-postgres"
+
+[plugin.metrics.redis]
+command = "/usr/local/bin/mackerel-plugin-redis"
