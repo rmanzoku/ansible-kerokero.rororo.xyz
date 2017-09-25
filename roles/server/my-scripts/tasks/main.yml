@@ -1,8 +1,14 @@
-- name: Clone dotfiles
+- name: Clone scripts repo
   git:
     repo: https://github.com/rmanzoku/scripts.git
     dest: "/usr/local/github.com/rmanzoku/scripts"
     version: master
+
+- name: Create profile file
+  copy:
+    content: |
+      export PATH=/usr/local/github.com/rmanzoku/scripts:$PATH
+    dest: /etc/profile.d/99_rmanzoku.sh
 
 - cron:
     user: root
@@ -14,7 +20,7 @@
     user: root
     env: yes
     name: WEBHOOK_URL
-    value: https://hooks.slack.com/services/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
+    value: "{{ slack_webhook }}"
 
 - cron:
     user: root
