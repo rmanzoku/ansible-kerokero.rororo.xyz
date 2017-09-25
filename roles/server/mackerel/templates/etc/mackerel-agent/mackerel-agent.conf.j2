@@ -8,16 +8,16 @@ on_start = "working"
 on_stop  = "poweroff"
 
 [plugin.metrics.aws-ec2_cpucredit]
-command = "/usr/local/bin/mackerel-plugin-aws-ec2-cpucredit"
+command = "/usr/bin/mackerel-plugin-aws-ec2-cpucredit"
 
 [plugin.metrics.linux]
-command = "/usr/local/bin/mackerel-plugin-linux"
+command = "/usr/bin/mackerel-plugin-linux"
 
 [plugin.metrics.nginx]
-command = "/usr/local/bin/mackerel-plugin-nginx -path /server-status -port 80 "
+command = "/usr/bin/mackerel-plugin-nginx -path /server-status -port 80 "
 
 [plugin.metrics.postgres]
 command = "mackerel-plugin-postgres"
 
 [plugin.metrics.redis]
-command = "/usr/local/bin/mackerel-plugin-redis"
+command = "/usr/bin/mackerel-plugin-redis"
