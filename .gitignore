@@ -1,2 +1,5 @@
 .direnv
 .ansible.log
+
+# Credentials
+roles/server/deploy-mastodon/files/home/mastodon/live/.env.production
