@@ -1,0 +1,9 @@
+route53:
+  - zone: rororo.xyz
+    records:
+      # acme
+      - { RECORD: _acme-challenge.kerokero.rororo.xyz.,      TYPE: TXT, VALUE: '"E3jrE5b4ljWRaP4WQe-yq32Rx0S4LceBfB238TYuqMo"' }
+
+      # Server
+      - { RECORD: kerokero.rororo.xyz, TYPE: A,    VALUE: "52.197.208.57",                          TTL: 3600 }
+      - { RECORD: kerokero.rororo.xyz, TYPE: AAAA, VALUE: "2406:da14:40b:8400:f618:50a8:1852:fec9", TTL: 3600 }

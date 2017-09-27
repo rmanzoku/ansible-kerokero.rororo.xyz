@@ -8,3 +8,4 @@
     # - { tags: sg, role: aws/security-group } not support IPv6
     - { tags: s3, role: aws/s3 }
     - { tags: iamrole, role: aws/iamrole }
+    - { tags: r53, role: aws/route53 }

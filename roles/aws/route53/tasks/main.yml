@@ -1,0 +1,19 @@
+- route53:
+    command: create
+    zone: "{{ item.0.zone }}"
+    record: "{{ item.1.RECORD }}"
+    type: "{{ item.1.TYPE | default('A') }}"
+    ttl: "{{ item.1.TTL | default(300) }}"
+    value: "{{ item.1.VALUE }}"
+    overwrite: "{{ DNS_OVERWRITE | default(false) }}"
+    alias: "{{ item.1.ALIAS | default(false) }}"
+    alias_hosted_zone_id: "{{ item.1.ALIAS_HOSTED_ZONE_ID | default('') }}"
+  with_subelements:
+    - '{{route53}}'
+    - "records"
+  ignore_errors: True
+  register: result
+
+
+- fail: msg="既存のレコードを変更する場合は, -e DNS_OVERWRITE=true を付けてください"
+  when: result.failed is defined
