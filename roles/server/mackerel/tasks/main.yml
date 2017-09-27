@@ -29,6 +29,8 @@
     group: root
     mode: 0644
 
-- systemd: name=mackerel-agent.service state=started
+- name: mackerel-agent started
+  systemd: name=mackerel-agent.service state=started
 
-- systemd: name=mackerel-agent.service state=reloaded
+- name: mackerel-agent reloaded
+  systemd: name=mackerel-agent.service state=reloaded

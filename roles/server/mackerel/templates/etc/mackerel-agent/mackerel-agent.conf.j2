@@ -3,6 +3,8 @@ root = "/var/lib/mackerel-agent"
 verbose = false
 apikey = "{{ mackerel_key }}"
 
+roles = [ "kerokero:web", "kerokero:redis" ]
+
 [host_status]
 on_start = "working"
 on_stop  = "poweroff"
@@ -16,8 +18,11 @@ command = "/usr/bin/mackerel-plugin-linux"
 [plugin.metrics.nginx]
 command = "/usr/bin/mackerel-plugin-nginx -path /server-status -port 80 "
 
-[plugin.metrics.postgres]
-command = "mackerel-plugin-postgres"
+# [plugin.metrics.postgres]
+# command = "mackerel-plugin-postgres"
 
 [plugin.metrics.redis]
 command = "/usr/bin/mackerel-plugin-redis"
+
+[plugin.checks.cert]
+command = "/usr/bin/check-cert-file -f /etc/letsencrypt/live/kerokero.rororo.xyz/cert.pem"
