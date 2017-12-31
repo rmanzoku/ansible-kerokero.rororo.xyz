@@ -48,8 +48,8 @@
   become: yes
   become_user: mastodon
 
-- name: Copy env file
-  copy: src=home/mastodon/live/.env.production dest=/home/mastodon/live/.env.production
+# - name: Copy env file
+#   copy: src=home/mastodon/live/.env.production dest=/home/mastodon/live/.env.production
 
 - name: bundle exec
   shell: "/home/mastodon/.rbenv/shims/bundle exec {{ item }}"
@@ -60,9 +60,10 @@
   become: yes
   become_user: mastodon
   with_items:
+    # - rake paperclip:refresh:thumbnails CLASS=CustomEmoji # for v2.0.0
     # - rails mastodon:maintenance:prepare_for_foreign_keys # for v1.4.2
     - rails db:migrate
     # - rails r Rails.cache.clear # for v1.4.2
     - rails assets:precompile
     # - rails mastodon:maintenance:remove_deprecated_preview_cards # for v1.6.0
-
+    # - rails mastodon:maintenance:migrate_photo_preview_cards # for v2.1.0
