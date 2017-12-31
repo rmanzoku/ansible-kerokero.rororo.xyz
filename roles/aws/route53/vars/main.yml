@@ -2,7 +2,7 @@ route53:
   - zone: rororo.xyz
     records:
       # acme
-      - { RECORD: _acme-challenge.kerokero.rororo.xyz.,      TYPE: TXT, VALUE: '"E3jrE5b4ljWRaP4WQe-yq32Rx0S4LceBfB238TYuqMo"' }
+      - { RECORD: _acme-challenge.kerokero.rororo.xyz.,      TYPE: TXT, VALUE: '"bUflSGfT5qw2VDuheqNP-_ydqWHWNeraoYKKOgMAmNE"' }
 
       # Server
       - { RECORD: kerokero.rororo.xyz, TYPE: A,    VALUE: "52.197.208.57",                          TTL: 3600 }
