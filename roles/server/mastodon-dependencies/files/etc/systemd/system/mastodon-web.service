@@ -8,7 +8,8 @@ User=mastodon
 WorkingDirectory=/home/mastodon/live
 Environment="RAILS_ENV=production"
 Environment="PORT=3000"
-ExecStart=/home/mastodon/.rbenv/shims/bundle exec puma -C config/puma.rb
+ExecStart=/home/mastodon/.rbenv/shims/bundle exec puma -C config/puma.rb --control tcp://127.0.0.1:9293 --control-token monitor
+ExecReload=/bin/kill -SIGUSR1 $MAINPID
 TimeoutSec=15
 Restart=always
 
