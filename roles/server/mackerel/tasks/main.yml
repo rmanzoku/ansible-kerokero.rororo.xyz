@@ -12,11 +12,17 @@
   changed_when: no
 
 - name: Install mackerel-agent and plugins
-  apt: name={{ item }} state=present
+  apt: name={{ item }} state=latest
   with_items:
+    - mkr
     - mackerel-agent
     - mackerel-agent-plugins
     - mackerel-check-plugins
+
+- name: Install plugins by mkr
+  shell: mkr plugin install {{ item }}
+  with_items:
+    - mackerel-plugin-puma
 
 - name: Make conf.d directory
   file: state=directory path=/etc/mackerel-agent/conf.d owner=root group=root

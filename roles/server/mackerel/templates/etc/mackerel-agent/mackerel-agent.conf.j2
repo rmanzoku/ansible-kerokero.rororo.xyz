@@ -26,3 +26,9 @@ command = "/usr/bin/mackerel-plugin-redis"
 
 [plugin.checks.cert]
 command = "/usr/bin/check-cert-file -f /etc/letsencrypt/live/kerokero.rororo.xyz/cert.pem"
+
+[plugin.metrics.sidekiq]
+command ="mackerel-plugin-sidekiq"
+
+[plugin.metrics.puma]
+command ="/opt/mackerel-agent/plugins/bin/mackerel-plugin-puma  --token monitor"
