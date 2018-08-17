@@ -9,6 +9,7 @@
     - gcc
     - make
     - unzip
+    - linux-aws
 
 - name: Update security
   apt: name={{ item }} state=latest force=yes
