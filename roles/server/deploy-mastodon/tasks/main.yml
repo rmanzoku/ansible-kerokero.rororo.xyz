@@ -7,12 +7,11 @@
   become: yes
   become_user: mastodon
 
-- shell: /home/mastodon/.rbenv/bin/rbenv install
+- shell: /home/mastodon/.rbenv/bin/rbenv install --skip-existing
   args:
     chdir: /home/mastodon/live
   become: yes
   become_user: mastodon
-  when: RUBY_UPDATE is defined and RUBY_UPDATE
 
 - name: set global ruby
   file: state=link dest=/home/mastodon/.rbenv/version src=/home/mastodon/live/.ruby-version
@@ -63,7 +62,9 @@
     # - rake paperclip:refresh:thumbnails CLASS=CustomEmoji # for v2.0.0
     # - rails mastodon:maintenance:prepare_for_foreign_keys # for v1.4.2
     - rails db:migrate
-    # - rails r Rails.cache.clear # for v1.4.2
     - rails assets:precompile
+    # - rails r Rails.cache.clear # for v1.4.2
     # - rails mastodon:maintenance:remove_deprecated_preview_cards # for v1.6.0
     # - rails mastodon:maintenance:migrate_photo_preview_cards # for v2.1.0
+    # - rails mastodon:maintenance:purge_removed_accounts
+    # - rails mastodon:maintenance:remove_regeneration_markers # for v2.2.0
